@@ -1,0 +1,20 @@
+D:\Programmin Advice\Projects\Personal Finance Manger\bin\Debug\Personal Finance Manger.exe.config
+D:\Programmin Advice\Projects\Personal Finance Manger\bin\Debug\Personal Finance Manger.exe
+D:\Programmin Advice\Projects\Personal Finance Manger\bin\Debug\Personal Finance Manger.pdb
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.AssemblyReference.cache
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal_Finance_Manger.Form1.resources
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal_Finance_Manger.Properties.Resources.resources
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.GenerateResource.cache
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.CoreCompileInputs.cache
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal Finance Manger.exe
+D:\Programmin Advice\Projects\Personal Finance Manger\obj\Debug\Personal Finance Manger.pdb
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Personal Finance Manger.exe.config
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Personal Finance Manger.exe
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Personal Finance Manger.pdb
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.AssemblyReference.cache
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal_Finance_Manger.Form1.resources
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal_Finance_Manger.Properties.Resources.resources
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.GenerateResource.cache
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.CoreCompileInputs.cache
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.exe
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.pdb
