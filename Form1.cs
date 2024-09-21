@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using OfficeOpenXml;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Personal_Finance_Manger
@@ -21,7 +17,45 @@ namespace Personal_Finance_Manger
         static string FileIncome = @"K:\My backups\DataBase\AddIncome.txt";
         static string FileExpenses = @"K:\My backups\DataBase\AddExpenses.txt";
         static string FileSaving = @"K:\My backups\DataBase\AddSavings.txt";
-        public void  saveData(string join,string filePath)
+
+
+   private void ExportToExcel(ListView listView)
+    {
+            // تعيين الترخيص المجاني باستخدام المسار الكامل
+            OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+            {
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                using (ExcelPackage excelPackage = new ExcelPackage())
+                {
+                    ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Report");
+
+                    // إضافة رؤوس الأعمدة
+                    worksheet.Cells[1, 1].Value = "Month";
+                    worksheet.Cells[1, 2].Value = "Year";
+                    worksheet.Cells[1, 3].Value = "TotalIncome";
+                    worksheet.Cells[1, 4].Value = "TotalExpenses";
+
+                    // إضافة البيانات من ListView إلى ملف Excel
+                    for (int i = 0; i < listView.Items.Count; i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = listView.Items[i].SubItems[0].Text;  
+                        worksheet.Cells[i + 2, 2].Value = listView.Items[i].SubItems[1].Text;  
+                        worksheet.Cells[i + 2, 3].Value = listView.Items[i].SubItems[2].Text;
+                        worksheet.Cells[i + 2, 4].Value = listView.Items[i].SubItems[3].Text;
+                    }
+
+                    // حفظ الملف
+                    FileInfo excelFile = new FileInfo(sfd.FileName);
+                    excelPackage.SaveAs(excelFile);
+                }
+            }
+        }
+    }
+
+    public void  saveData(string join,string filePath)
         {
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -127,7 +161,7 @@ namespace Personal_Finance_Manger
                 MessageBox.Show("Error Your Fieldes are empty ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        Array lTasks(string file)
+        Array allFinancials(string file)
         {
             return File.ReadAllLines(file);
         }
@@ -135,7 +169,7 @@ namespace Personal_Finance_Manger
         {
             if (File.Exists(filePath))
             {
-                foreach (string line in lTasks(filePath))
+                foreach (string line in allFinancials(filePath))
                 {
                     string[] split = line.Split('*');
                     string amount = split[0];
@@ -144,10 +178,10 @@ namespace Personal_Finance_Manger
                     string note = split[3].Trim();
                     ListViewItem item = new ListViewItem();
                     item.Text = amount;
-                    item.SubItems.Add(type);
                     item.SubItems.Add(date);
+                    item.SubItems.Add(type);
                     item.SubItems.Add(note);
-                 
+              
                     listView.Items.Add(item);
                 }
             }
@@ -156,7 +190,7 @@ namespace Personal_Finance_Manger
         {
             if (File.Exists(filePath))
             {
-                foreach (string line in lTasks(filePath))
+                foreach (string line in allFinancials(filePath))
                 {
                     if (line != "")
                     {
@@ -177,6 +211,11 @@ namespace Personal_Finance_Manger
                 }
             }
         }
+        void makeFromDateLessThanToDate()
+        {
+            dtpDateFromR.MaxDate = dtpDateToR.Value;
+            dtpDateToR.MaxDate = DateTime.Now;
+        }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 1)
@@ -193,6 +232,10 @@ namespace Personal_Finance_Manger
             {
                 listView3.Items.Clear();
                 readFromSavingFile(FileSaving, listView3);
+            }
+            else if(tabControl1.SelectedIndex == 4)
+            {
+               makeFromDateLessThanToDate();
             }
         }
 
@@ -227,58 +270,60 @@ namespace Personal_Finance_Manger
         {
             return dtpDateToR.Value.Year.ToString();
         }
-        bool isInYear(String yearFromFile,String yearInList)
+        bool isInYear(String yearFromFile,String yearFrom,String yearTo)
         {
           int YearFile = Int32.Parse(yearFromFile);
-          int YearList = Int32.Parse(yearInList);
-            if (YearFile <= YearList)
+          int YearFrom = Int32.Parse(yearFrom);
+          int YearTo   = Int32.Parse(yearTo);
+            if (YearFile >= YearFrom && YearFile <= YearTo)
             {
                 return true;
             }
             return false;
         }
-        bool isInMonth(String monthFromFile, String monthInList)
+        bool isInMonth(String monthFromFile, String monthFrom,String monthTo)
         {
 
             int MonthFile = Int32.Parse(monthFromFile);
-            int MonthList = Int32.Parse(monthInList);
-            if (MonthFile <= MonthList)
+            int MonthFrom = Int32.Parse(monthFrom);
+            int MonthTo = Int32.Parse(monthTo);
+            if (MonthFile >= MonthFrom && MonthFile <= MonthTo)
             {
                 return true;
             }
             return false;
         }
-    
+        String[] shareMyDataToItem(String item)
+        {
+            string[] split = item.Split('*');
+            string[] items = { split[0], split[1].Trim().Split('/')[0], split[1].Trim().Split('/')[2].Split(' ')[0] };
+            return items;
+            
+        }
         ListViewItem createItem()
         {
             ListViewItem Item = new ListViewItem();
             Item.Text = MonthFrom() + " - " + MonthTo();
             Item.SubItems.Add(YearFrom() + "-" + YearTo());
-            Array allIncome = lTasks(FileIncome);
-            Array allExpenses = lTasks(FileExpenses);
+            Array allIncome = allFinancials(FileIncome);
+            Array allExpenses = allFinancials(FileExpenses);
             float totalIncome = 0.0f;
             foreach (String item in allIncome)
             {
-                string[] split = item.Split('*');
-                string amount = split[0];
-                string month = split[1].Trim().Split('/')[0];
-                string year = split[1].Trim().Split('/')[2];
-                if (isInMonth(month,MonthFrom()))
+                String[] items =  shareMyDataToItem(item);
+                if (isInMonth(items[1],MonthFrom(),MonthTo()) && isInYear(items[2], YearFrom(),YearTo()))
                 {
-                    totalIncome += float.Parse(amount);
+                    totalIncome += float.Parse(items[0]);
                 }
             }
             Item.SubItems.Add(totalIncome.ToString());
             float totalExpenses = 0.0f;
             foreach (String item in allExpenses)
             {
-                string[] split = item.Split('*');
-                string amount = split[0];
-                string month = split[1].Trim().Split('/')[0];
-                string year = split[1].Trim().Split('/')[2];
-                if (isInMonth(month, MonthFrom()))
+                String[] items = shareMyDataToItem(item);
+                if (isInMonth(items[1], MonthFrom(), MonthTo()) && isInYear(items[2], YearFrom(), YearTo()))
                 {
-                    totalExpenses += float.Parse(amount);
+                    totalExpenses += float.Parse(items[0]);
                 }
             }
             Item.SubItems.Add(totalExpenses.ToString());
@@ -287,6 +332,16 @@ namespace Personal_Finance_Manger
         private void btnShowR_Click(object sender, EventArgs e)
         {
             listView4.Items.Add(createItem());
+        }
+        
+        private void dtpDateToR_ValueChanged(object sender, EventArgs e)
+        {
+            makeFromDateLessThanToDate();
+        }
+
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            ExportToExcel(listView4);
         }
     }
 }

@@ -91,6 +91,7 @@
             this.reportTotalIncome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.reportTotalExpernses = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnExportToExcel = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabIncome.SuspendLayout();
             this.tabExpenses.SuspendLayout();
@@ -575,6 +576,7 @@
             // 
             // Reports
             // 
+            this.Reports.Controls.Add(this.btnExportToExcel);
             this.Reports.Controls.Add(this.label15);
             this.Reports.Controls.Add(this.label14);
             this.Reports.Controls.Add(this.dtpDateToR);
@@ -614,10 +616,11 @@
             this.dtpDateToR.Name = "dtpDateToR";
             this.dtpDateToR.Size = new System.Drawing.Size(140, 27);
             this.dtpDateToR.TabIndex = 28;
+            this.dtpDateToR.ValueChanged += new System.EventHandler(this.dtpDateToR_ValueChanged);
             // 
             // btnShowR
             // 
-            this.btnShowR.Location = new System.Drawing.Point(133, 95);
+            this.btnShowR.Location = new System.Drawing.Point(13, 95);
             this.btnShowR.Name = "btnShowR";
             this.btnShowR.Size = new System.Drawing.Size(140, 34);
             this.btnShowR.TabIndex = 27;
@@ -672,6 +675,16 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // btnExportToExcel
+            // 
+            this.btnExportToExcel.Location = new System.Drawing.Point(241, 95);
+            this.btnExportToExcel.Name = "btnExportToExcel";
+            this.btnExportToExcel.Size = new System.Drawing.Size(140, 34);
+            this.btnExportToExcel.TabIndex = 31;
+            this.btnExportToExcel.Text = "Export To Excel";
+            this.btnExportToExcel.UseVisualStyleBackColor = true;
+            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
             // 
             // Form1
             // 
@@ -760,6 +773,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DateTimePicker dtpDateToR;
+        private System.Windows.Forms.Button btnExportToExcel;
     }
 }
 

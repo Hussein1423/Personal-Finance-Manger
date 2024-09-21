@@ -18,3 +18,31 @@ D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Ma
 D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.csproj.CoreCompileInputs.cache
 D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.exe
 D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal Finance Manger.pdb
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\EPPlus.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\EPPlus.Interfaces.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\EPPlus.System.Drawing.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Buffers.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.ComponentModel.Annotations.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Formats.Asn1.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Memory.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Numerics.Vectors.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Text.Encodings.Web.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Text.Json.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.ValueTuple.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\EPPlus.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Buffers.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Formats.Asn1.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Memory.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Numerics.Vectors.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Text.Encodings.Web.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Text.Json.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.ValueTuple.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal.15BBE37B.Up2Date
