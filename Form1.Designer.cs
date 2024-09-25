@@ -80,6 +80,7 @@
             this.msktxtAmountS = new System.Windows.Forms.MaskedTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Reports = new System.Windows.Forms.TabPage();
+            this.btnExportToExcel = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.dtpDateToR = new System.Windows.Forms.DateTimePicker();
@@ -91,7 +92,6 @@
             this.reportTotalIncome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.reportTotalExpernses = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnExportToExcel = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabIncome.SuspendLayout();
             this.tabExpenses.SuspendLayout();
@@ -590,6 +590,16 @@
             this.Reports.Text = "Reports";
             this.Reports.UseVisualStyleBackColor = true;
             // 
+            // btnExportToExcel
+            // 
+            this.btnExportToExcel.Location = new System.Drawing.Point(241, 95);
+            this.btnExportToExcel.Name = "btnExportToExcel";
+            this.btnExportToExcel.Size = new System.Drawing.Size(140, 34);
+            this.btnExportToExcel.TabIndex = 31;
+            this.btnExportToExcel.Text = "Export To Excel";
+            this.btnExportToExcel.UseVisualStyleBackColor = true;
+            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -676,16 +686,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // btnExportToExcel
-            // 
-            this.btnExportToExcel.Location = new System.Drawing.Point(241, 95);
-            this.btnExportToExcel.Name = "btnExportToExcel";
-            this.btnExportToExcel.Size = new System.Drawing.Size(140, 34);
-            this.btnExportToExcel.TabIndex = 31;
-            this.btnExportToExcel.Text = "Export To Excel";
-            this.btnExportToExcel.UseVisualStyleBackColor = true;
-            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -694,6 +694,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabIncome.ResumeLayout(false);

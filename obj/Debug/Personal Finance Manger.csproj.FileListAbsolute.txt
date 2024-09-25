@@ -46,3 +46,12 @@ D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Text.Json.xm
 D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\System.ValueTuple.xml
 D:\Programmin Advice\C# 14\Personal Finance Manger\obj\Debug\Personal.15BBE37B.Up2Date
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.WinForms.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.Wpf.dll
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.pdb
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.WinForms.pdb
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.WinForms.xml
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.Wpf.pdb
+D:\Programmin Advice\C# 14\Personal Finance Manger\bin\Debug\LiveCharts.Wpf.xml

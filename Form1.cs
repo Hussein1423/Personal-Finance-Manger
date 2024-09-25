@@ -4,6 +4,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using LiveCharts;
+using LiveCharts.WinForms;
+using LiveCharts.Wpf;
+using System.Collections.Generic;
+
+
 
 namespace Personal_Finance_Manger
 {
@@ -18,8 +24,60 @@ namespace Personal_Finance_Manger
         static string FileExpenses = @"K:\My backups\DataBase\AddExpenses.txt";
         static string FileSaving = @"K:\My backups\DataBase\AddSavings.txt";
 
+        LinkedList<double> amounts(string File)
+        {
 
-   private void ExportToExcel(ListView listView)
+            LinkedList<double> allAmounts = new LinkedList<double>();
+            foreach (string line in allFinancials(File))
+            {
+                string[] split = line.Split('*');
+                allAmounts.AddFirst(double.Parse(split[0]));
+            }
+            return allAmounts;
+        }
+
+
+        private void CreateLiveChart()
+        {
+            // إعداد المخطط
+            LiveCharts.WinForms.CartesianChart cartesianChart = new LiveCharts.WinForms.CartesianChart();
+
+            LinkedList<double> incomeList = amounts(FileIncome);
+            var chartValues = new ChartValues<double>(incomeList);
+            // إضافة بيانات إلى المخطط
+            cartesianChart.Series.Add(new ColumnSeries
+            {
+                
+                Title = "Income",
+                Values = chartValues
+            });
+
+            LinkedList<double> expList = amounts(FileExpenses);
+            var chartValuesexp = new ChartValues<double>(expList);
+            cartesianChart.Series.Add(new ColumnSeries
+            {
+                Title = "Expenses",
+                Values = chartValuesexp
+            });
+
+            LinkedList<double> saveList = amounts(FileSaving);
+            var chartValuesave = new ChartValues<double>(saveList);
+            cartesianChart.Series.Add(new ColumnSeries
+            {
+                Title = "Save",
+                Values = chartValuesave
+            });
+            cartesianChart.AxisY.Add(new Axis
+            {
+                Title = "Income",
+                LabelFormatter = value => value.ToString("C") // تنسيق الأرقام
+            });
+            cartesianChart.Dock = DockStyle.Fill;
+            // عرض المخطط على النافذة
+            tabControl1.TabPages[0].Controls.Add(cartesianChart);
+        }
+
+        private void ExportToExcel(ListView listView)
     {
             // تعيين الترخيص المجاني باستخدام المسار الكامل
             OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
@@ -228,6 +286,12 @@ namespace Personal_Finance_Manger
                 listView2.Items.Clear();
                 readFromFile(FileExpenses,listView2);
             }
+            else if (tabControl1.SelectedIndex == 0)
+            {
+              
+                tabControl1.TabPages[0].Controls.Clear();
+                CreateLiveChart();
+            }
             else if (tabControl1.SelectedIndex == 3)
             {
                 listView3.Items.Clear();
@@ -342,6 +406,11 @@ namespace Personal_Finance_Manger
         private void btnExportToExcel_Click(object sender, EventArgs e)
         {
             ExportToExcel(listView4);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            CreateLiveChart();
         }
     }
 }
