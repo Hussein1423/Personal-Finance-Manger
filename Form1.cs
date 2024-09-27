@@ -89,13 +89,11 @@ namespace Personal_Finance_Manger
             
             tabControl1.ItemSize = new Size(tabControl1.Height / tabControl1.TabCount - 1, 40);
         }
-
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (msktxtAmountI.Text != "" && !string.IsNullOrEmpty(cbxTypesI.Text))
             {
-                file.saveData(join(msktxtAmountI,dtpDateI,cbxTypesI,rtbNotesI),file.FileIncome);
+                clsFile.saveData(join(msktxtAmountI,dtpDateI,cbxTypesI,rtbNotesI),file.FileIncome);
                 MessageBox.Show("Successfully,Your Personal Financial Was Saved ", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbxTypesI.Text = "";
                 msktxtAmountI.Clear();
@@ -105,8 +103,6 @@ namespace Personal_Finance_Manger
                 MessageBox.Show("Error Your Fieldes are empty ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void msktxtAmountI_Validating(object sender, CancelEventArgs e)
         {
             if(msktxtAmountI.Text == "")
@@ -152,7 +148,7 @@ namespace Personal_Finance_Manger
         {
             if (msktxtAmountE.Text != "" && !string.IsNullOrEmpty(cbxTypesE.Text))
             {
-                file.saveData(join(msktxtAmountE, dtpDateE, cbxTypesE, rtbNotesE), file.FileExpenses);
+                clsFile.saveData(join(msktxtAmountE, dtpDateE, cbxTypesE, rtbNotesE), file.FileExpenses);
                 MessageBox.Show("Successfully,Your Personal Financial Was Saved ", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbxTypesE.Text = "";
                 msktxtAmountE.Clear();
@@ -163,22 +159,18 @@ namespace Personal_Finance_Manger
                 MessageBox.Show("Error Your Fieldes are empty ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        void makeFromDateLessThanToDate()
-        {
-            dtpDateFromR.MaxDate = dtpDateToR.Value;
-            dtpDateToR.MaxDate = DateTime.Now;
-        }
+        
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 1)
             {
                 listView1.Items.Clear();
-                file.readFromFile(file.FileIncome,listView1);
+                clsFile.readFromFile(file.FileIncome,listView1);
             }
             else if (tabControl1.SelectedIndex == 2)
             {
                 listView2.Items.Clear();
-                file.readFromFile(file.FileExpenses,listView2);
+                clsFile.readFromFile(file.FileExpenses,listView2);
             }
             else if (tabControl1.SelectedIndex == 0)
             {
@@ -189,11 +181,11 @@ namespace Personal_Finance_Manger
             else if (tabControl1.SelectedIndex == 3)
             {
                 listView3.Items.Clear();
-                file.readFromSavingFile(file.FileSaving, listView3);
+                clsFile.readFromSavingFile(file.FileSaving, listView3);
             }
             else if(tabControl1.SelectedIndex == 4)
             {
-               makeFromDateLessThanToDate();
+               clsDate.makeFromDateLessThanToDate(dtpDateFromR,dtpDateToR);
             }
         }
 
@@ -201,7 +193,7 @@ namespace Personal_Finance_Manger
         {
             if(msktxtAmountS.Text != "" && msktxtDaysS.Text !="" || msktxtMonthsS.Text != "" || msktxtYearsS.Text != "")
             {
-               file.saveData(join(msktxtAmountS, msktxtDaysS, msktxtMonthsS, msktxtYearsS,rtbNotesS),file.FileSaving);
+               clsFile.saveData(join(msktxtAmountS, msktxtDaysS, msktxtMonthsS, msktxtYearsS,rtbNotesS),file.FileSaving);
                 MessageBox.Show("Successfully,Your Saving Was Saved ", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -209,67 +201,19 @@ namespace Personal_Finance_Manger
                 MessageBox.Show("Error Your Fieldes are empty ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        string MonthFrom()
-        {
-            return dtpDateFromR.Value.Month.ToString();
-        }
-
-        string MonthTo()
-        {
-            return dtpDateToR.Value.Month.ToString();
-        }
-
-        string YearFrom()
-        {
-            return dtpDateFromR.Value.Year.ToString();
-        }
-
-        string YearTo()
-        {
-            return dtpDateToR.Value.Year.ToString();
-        }
-        bool isInYear(String yearFromFile,String yearFrom,String yearTo)
-        {
-          int YearFile = Int32.Parse(yearFromFile);
-          int YearFrom = Int32.Parse(yearFrom);
-          int YearTo   = Int32.Parse(yearTo);
-            if (YearFile >= YearFrom && YearFile <= YearTo)
-            {
-                return true;
-            }
-            return false;
-        }
-        bool isInMonth(String monthFromFile, String monthFrom,String monthTo)
-        {
-
-            int MonthFile = Int32.Parse(monthFromFile);
-            int MonthFrom = Int32.Parse(monthFrom);
-            int MonthTo = Int32.Parse(monthTo);
-            if (MonthFile >= MonthFrom && MonthFile <= MonthTo)
-            {
-                return true;
-            }
-            return false;
-        }
-        String[] shareMyDataToItem(String item)
-        {
-            string[] split = item.Split('*');
-            string[] items = { split[0], split[1].Trim().Split('/')[0], split[1].Trim().Split('/')[2].Split(' ')[0] };
-            return items;
-            
-        }
-        ListViewItem createItem()
+        
+        ListViewItem createItem(DateTimePicker dateFrom,DateTimePicker dateTo)
         {
             ListViewItem Item = new ListViewItem();
-            Item.Text = MonthFrom() + " - " + MonthTo();
-            Item.SubItems.Add(YearFrom() + "-" + YearTo());
-            Array allIncome = file.allFinancials(FileIncome);
-            Array allExpenses = file.allFinancials(FileExpenses);
+            Item.Text = clsDate.MonthFrom(dateFrom) + " - " + clsDate.MonthTo(dateTo);
+            Item.SubItems.Add(clsDate.YearFrom(dateFrom) + "-" + clsDate.YearTo(dateTo));
+            Array allIncome = clsFile.allFinancials(FileIncome);
+            Array allExpenses = clsFile.allFinancials(FileExpenses);
             float totalIncome = 0.0f;
             foreach (String item in allIncome)
             {
-                String[] items =  shareMyDataToItem(item);
-                if (isInMonth(items[1],MonthFrom(),MonthTo()) && isInYear(items[2], YearFrom(),YearTo()))
+                String[] items =  clsDate.shareMyDataToItem(item);
+                if (clsDate.isInMonth(items[1],clsDate.MonthFrom(dateFrom),clsDate.MonthTo(dateTo)) && clsDate.isInYear(items[2], clsDate.YearFrom(dateFrom), clsDate.YearTo(dateTo)))
                 {
                     totalIncome += float.Parse(items[0]);
                 }
@@ -278,8 +222,8 @@ namespace Personal_Finance_Manger
             float totalExpenses = 0.0f;
             foreach (String item in allExpenses)
             {
-                String[] items = shareMyDataToItem(item);
-                if (isInMonth(items[1], MonthFrom(), MonthTo()) && isInYear(items[2], YearFrom(), YearTo()))
+                String[] items = clsDate.shareMyDataToItem(item);
+                if (clsDate.isInMonth(items[1], clsDate.MonthFrom(dateFrom), clsDate.MonthTo(dateTo)) && clsDate.isInYear(items[2], clsDate.YearFrom(dateFrom), clsDate.YearTo(dateTo)))
                 {
                     totalExpenses += float.Parse(items[0]);
                 }
@@ -289,12 +233,12 @@ namespace Personal_Finance_Manger
         }
         private void btnShowR_Click(object sender, EventArgs e)
         {
-            listView4.Items.Add(createItem());
+            listView4.Items.Add(createItem(dtpDateFromR,dtpDateToR));
         }
         
         private void dtpDateToR_ValueChanged(object sender, EventArgs e)
         {
-            makeFromDateLessThanToDate();
+            clsDate.makeFromDateLessThanToDate(dtpDateFromR,dtpDateToR);
         }
 
         private void btnExportToExcel_Click(object sender, EventArgs e)

@@ -16,13 +16,14 @@ namespace Personal_Finance_Manger
         public string FileExpenses {  get; set; }
         public  string FileSaving { get; set; }
 
-       public clsFile(string fileIncome,string fileExpenses,string fileSaving)
+        public clsFile(string fileIncome, string fileExpenses, string fileSaving)
         {
             FileIncome = fileIncome;
             FileExpenses = fileExpenses;
             FileSaving = fileSaving;
         }
-       public LinkedList<double> amounts(string File)
+
+        static public LinkedList<double> amounts(string File)
         {
 
             LinkedList<double> allAmounts = new LinkedList<double>();
@@ -33,11 +34,11 @@ namespace Personal_Finance_Manger
             }
             return allAmounts;
         }
-       public Array allFinancials(string file)
+     static  public Array allFinancials(string file)
         {
             return File.ReadAllLines(file);
         }
-        public void CreateLiveChart(TabControl tabControl)
+      public void CreateLiveChart(TabControl tabControl)
         {
             // إعداد المخطط
             LiveCharts.WinForms.CartesianChart cartesianChart = new LiveCharts.WinForms.CartesianChart();
@@ -77,7 +78,7 @@ namespace Personal_Finance_Manger
             tabControl.TabPages[0].Controls.Add(cartesianChart);
         }
 
-        public void saveData(string join, string filePath)
+      static  public void saveData(string join, string filePath)
         {
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -85,7 +86,7 @@ namespace Personal_Finance_Manger
             }
         }
 
-        public void readFromFile(string filePath, ListView listView)
+       static public void readFromFile(string filePath, ListView listView)
         {
             if (File.Exists(filePath))
             {
@@ -107,7 +108,7 @@ namespace Personal_Finance_Manger
             }
         }
 
-        public void readFromSavingFile(string filePath, ListView listView)
+        static public void readFromSavingFile(string filePath, ListView listView)
         {
             if (File.Exists(filePath))
             {
