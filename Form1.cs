@@ -4,12 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using LiveCharts;
-using LiveCharts.WinForms;
-using LiveCharts.Wpf;
-using System.Collections.Generic;
-
-
 
 
 namespace Personal_Finance_Manger
@@ -24,11 +18,15 @@ namespace Personal_Finance_Manger
         static string FileIncome = @"K:\My backups\DataBase\AddIncome.txt";
         static string FileExpenses = @"K:\My backups\DataBase\AddExpenses.txt";
         static string FileSaving = @"K:\My backups\DataBase\AddSavings.txt";
-
-        clsFile file = new clsFile(FileIncome,FileExpenses,FileSaving);
+        clsFile file = new clsFile();
+        clsIncome income = new clsIncome(FileIncome);
+        clsExpense expense = new clsExpense(FileExpenses);
+       clsSaving saving = new clsSaving(FileSaving);
+        
 
         private void ExportToExcel(ListView listView)
     {
+            
             // تعيين الترخيص المجاني باستخدام المسار الكامل
             OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
@@ -63,26 +61,6 @@ namespace Personal_Finance_Manger
         }
     }
 
-    
-        public string join(MaskedTextBox maskedTextBox,DateTimePicker dateTimePicker,ComboBox comboBox,RichTextBox richTextBox)
-        {
-            string join = "";
-            join += maskedTextBox.Text.Trim();
-            join += "*" +dateTimePicker.Value;
-            join += "*" + comboBox.Text;
-            join += "*" + richTextBox.Text;
-            return join;
-        }
-        public string join(MaskedTextBox maskedTextBox, MaskedTextBox maskedTextBox1, MaskedTextBox maskedTextBox2, MaskedTextBox maskedTextBox3, RichTextBox richTextBox)
-        {
-            string join = "";
-            join += maskedTextBox.Text.Trim();
-            join += "*" + maskedTextBox1.Text.Trim();     
-            join += "*" + maskedTextBox2.Text.Trim();
-            join += "*" + maskedTextBox3.Text.Trim();
-            join += "*" + richTextBox.Text;
-            return join;
-        }
         private void Form1_Resize(object sender, EventArgs e)
         {
             // base.OnResize(e);
@@ -93,7 +71,7 @@ namespace Personal_Finance_Manger
         {
             if (msktxtAmountI.Text != "" && !string.IsNullOrEmpty(cbxTypesI.Text))
             {
-                clsFile.saveData(join(msktxtAmountI,dtpDateI,cbxTypesI,rtbNotesI),file.FileIncome);
+                clsFile.saveData(income.join(msktxtAmountI,dtpDateI,cbxTypesI,rtbNotesI),income.FileIncome);
                 MessageBox.Show("Successfully,Your Personal Financial Was Saved ", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbxTypesI.Text = "";
                 msktxtAmountI.Clear();
@@ -148,7 +126,8 @@ namespace Personal_Finance_Manger
         {
             if (msktxtAmountE.Text != "" && !string.IsNullOrEmpty(cbxTypesE.Text))
             {
-                clsFile.saveData(join(msktxtAmountE, dtpDateE, cbxTypesE, rtbNotesE), file.FileExpenses);
+                
+                clsFile.saveData(expense.join(msktxtAmountE, dtpDateE, cbxTypesE, rtbNotesE), expense.FileExpense);
                 MessageBox.Show("Successfully,Your Personal Financial Was Saved ", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbxTypesE.Text = "";
                 msktxtAmountE.Clear();
@@ -165,23 +144,23 @@ namespace Personal_Finance_Manger
             if (tabControl1.SelectedIndex == 1)
             {
                 listView1.Items.Clear();
-                clsFile.readFromFile(file.FileIncome,listView1);
+                clsFile.readFromFile(FileIncome,listView1);
             }
             else if (tabControl1.SelectedIndex == 2)
             {
                 listView2.Items.Clear();
-                clsFile.readFromFile(file.FileExpenses,listView2);
+                clsFile.readFromFile(FileExpenses,listView2);
             }
             else if (tabControl1.SelectedIndex == 0)
             {
               
                 tabControl1.TabPages[0].Controls.Clear();
-                file.CreateLiveChart(tabControl1);
+                file.CreateLiveChart(tabControl1,income.FileIncome,FileExpenses,FileSaving);
             }
             else if (tabControl1.SelectedIndex == 3)
             {
                 listView3.Items.Clear();
-                clsFile.readFromSavingFile(file.FileSaving, listView3);
+                clsFile.readFromSavingFile(FileSaving, listView3);
             }
             else if(tabControl1.SelectedIndex == 4)
             {
@@ -193,7 +172,7 @@ namespace Personal_Finance_Manger
         {
             if(msktxtAmountS.Text != "" && msktxtDaysS.Text !="" || msktxtMonthsS.Text != "" || msktxtYearsS.Text != "")
             {
-               clsFile.saveData(join(msktxtAmountS, msktxtDaysS, msktxtMonthsS, msktxtYearsS,rtbNotesS),file.FileSaving);
+               clsFile.saveData(saving.join(msktxtAmountS, msktxtDaysS, msktxtMonthsS, msktxtYearsS,rtbNotesS),saving.FileSaving);
                 MessageBox.Show("Successfully,Your Saving Was Saved ", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -248,7 +227,7 @@ namespace Personal_Finance_Manger
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            file.CreateLiveChart(tabControl1);
+            file.CreateLiveChart(tabControl1, income.FileIncome, FileExpenses, FileSaving);
         }
     }
 }

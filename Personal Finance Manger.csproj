@@ -110,7 +110,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsDate.cs" />
+    <Compile Include="clsExpense.cs" />
     <Compile Include="clsFile.cs" />
+    <Compile Include="clsIncome.cs" />
+    <Compile Include="clsSaving.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

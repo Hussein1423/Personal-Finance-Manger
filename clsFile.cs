@@ -12,16 +12,8 @@ namespace Personal_Finance_Manger
 {
     internal class clsFile
     {
-        public string FileIncome {  get; set; }
-        public string FileExpenses {  get; set; }
-        public  string FileSaving { get; set; }
-
-        public clsFile(string fileIncome, string fileExpenses, string fileSaving)
-        {
-            FileIncome = fileIncome;
-            FileExpenses = fileExpenses;
-            FileSaving = fileSaving;
-        }
+      
+       
 
         static public LinkedList<double> amounts(string File)
         {
@@ -38,7 +30,7 @@ namespace Personal_Finance_Manger
         {
             return File.ReadAllLines(file);
         }
-      public void CreateLiveChart(TabControl tabControl)
+      public void CreateLiveChart(TabControl tabControl,string FileIncome,string FileExpenses,string FileSaving)
         {
             // إعداد المخطط
             LiveCharts.WinForms.CartesianChart cartesianChart = new LiveCharts.WinForms.CartesianChart();
